@@ -1,5 +1,5 @@
 <?php
-namespace Subugoe\Jobqueue\Redis\Queue;
+namespace Admaykin\Jobqueue\Redis\Queue;
 
 use TYPO3\Flow\Annotations as Flow;
 

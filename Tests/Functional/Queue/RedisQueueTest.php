@@ -1,5 +1,5 @@
 <?php
-namespace Subugoe\Jobqueue\Redis\Tests\Functional\Queue;
+namespace Admaykin\Jobqueue\Redis\Tests\Functional\Queue;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "Jobqueue.Redis".                *
@@ -17,7 +17,7 @@ namespace Subugoe\Jobqueue\Redis\Tests\Functional\Queue;
 class RedisQueueTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 	/**
-	 * @var \Subugoe\Jobqueue\Redis\Queue\RedisQueue
+	 * @var \Admaykin\Jobqueue\Redis\Queue\RedisQueue
 	 */
 	protected $queue;
 
@@ -32,7 +32,7 @@ class RedisQueueTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 			$this->markTestSkipped('Test database is not configured');
 		}
 
-		$this->queue = new \Subugoe\Jobqueue\Redis\Queue\RedisQueue('Test queue', $settings['testing']);
+		$this->queue = new \Admaykin\Jobqueue\Redis\Queue\RedisQueue('Test queue', $settings['testing']);
 
 		$client = new \Predis\Client($settings['testing']['client']);
 		$client->flushdb();
