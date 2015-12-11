@@ -194,7 +194,16 @@ class RedisQueue implements \TYPO3\Jobqueue\Common\Queue\QueueInterface {
 		$message->setOriginalValue($value);
 		return $message;
 	}
-
+	
+	/**
+	 * @param \TYPO3\Jobqueue\Common\Queue\Message $message
+	 * @return string
+	 */
+	public function submit(\TYPO3\Jobqueue\Common\Queue\Message $message)
+	{
+		// TODO: Implement submit() method.
+	}
+	
 	/**
 	 *
 	 * @param string $identifier
