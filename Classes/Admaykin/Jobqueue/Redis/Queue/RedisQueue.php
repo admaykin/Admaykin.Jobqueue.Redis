@@ -46,7 +46,7 @@ class RedisQueue implements \TYPO3\Jobqueue\Common\Queue\QueueInterface {
 	 * @param \TYPO3\Jobqueue\Common\Queue\Message $message
 	 * @return void
 	 */
-	public function publish(\TYPO3\Jobqueue\Common\Queue\Message $message) {
+	public function submit(\TYPO3\Jobqueue\Common\Queue\Message $message) {
 		if ($message->getIdentifier() !== NULL) {
 			$added = $this->client->sadd("queue:{$this->name}:ids", $message->getIdentifier());
 			if (!$added) {
@@ -55,7 +55,7 @@ class RedisQueue implements \TYPO3\Jobqueue\Common\Queue\QueueInterface {
 		}
 		$encodedMessage = $this->encodeMessage($message);
 		$this->client->lpush("queue:{$this->name}:messages", $encodedMessage);
-		$message->setState(\TYPO3\Jobqueue\Common\Queue\Message::STATE_PUBLISHED);
+		$message->setState(\TYPO3\Jobqueue\Common\Queue\Message::STATE_SUBMITTED);
 	}
 
 	/**
@@ -146,7 +146,7 @@ class RedisQueue implements \TYPO3\Jobqueue\Common\Queue\QueueInterface {
 			foreach ($result as $value) {
 				$message = $this->decodeMessage($value);
 				// The message is still published and should not be processed!
-				$message->setState(\TYPO3\Jobqueue\Common\Queue\Message::STATE_PUBLISHED);
+				$message->setState(\TYPO3\Jobqueue\Common\Queue\Message::STATE_SUBMITTED);
 				$messages[] = $message;
 			}
 			return $messages;
@@ -194,15 +194,7 @@ class RedisQueue implements \TYPO3\Jobqueue\Common\Queue\QueueInterface {
 		$message->setOriginalValue($value);
 		return $message;
 	}
-	
-	/**
-	 * @param \TYPO3\Jobqueue\Common\Queue\Message $message
-	 * @return string
-	 */
-	public function submit(\TYPO3\Jobqueue\Common\Queue\Message $message)
-	{
-		// TODO: Implement submit() method.
-	}
+
 	
 	/**
 	 *
